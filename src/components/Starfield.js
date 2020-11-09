@@ -1,6 +1,6 @@
 import Star from "./Star";
 
-export default class Startfield {
+export default class Starfield {
   constructor(div) {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
@@ -33,7 +33,6 @@ export default class Startfield {
     console.log("stop");
   }
   draw() {
-    console.log("draw");
     const ctx = this.canvas.getContext("2d");
 
     // Draw the background
@@ -49,19 +48,19 @@ export default class Startfield {
   }
   update() {
     const dt = 1 / this.fps;
-    for (var i = 0; i < this.stars.length; i++) {
-      const star = this.stars[i];
-      star.y += dt * star.velocity;
+    this.stars.forEach((star, i) => {
+      //const star = this.stars[i];
+      star.setY(dt);
       //  If the star has moved from the bottom of the screen, spawn it at the top.
       if (star.y > this.height) {
         this.stars[i] = new Star(
           this.width,
           0,
           this.minVelocity,
-          this.minVelocity
+          this.maxVelocity
         );
       }
-    }
+    });
   }
 
   tick() {
